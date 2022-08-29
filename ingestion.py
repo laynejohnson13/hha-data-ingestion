@@ -35,8 +35,8 @@ apiDataset = apiDataset.json()
 ##Creating client variable to connect to authentication key
 client = bigquery.Client.from_service_account_json('/Users/laynejohnson/Desktop/data-ingestion-360914-3248b6fda89f.json')
 
-##Creating query_job to access public database
-query_job = client.query("SELECT * FROM `bigquery-public-data.covid19_italy` LIMIT 100")
+##Creating query_job to access province table of dataset
+query_job = client.query("SELECT * FROM `bigquery-public-data.covid19_italy.data_by_province` LIMIT 100")
 
 ##Results
 results = query_job.result() 
@@ -44,4 +44,14 @@ results = query_job.result()
 
 ##Results into dataframe
 bigquery1 = pd.DataFrame(results.to_dataframe()) 
-###recieving error - 'results' is  not defined
+###recieving error - no module named 'db_dtypes' - did pip install command - now recieving 'results' is not defined
+
+
+###creating query_job to access region table of dataset
+query_job_2 = client.query("SELECT * FROM `bigquery-public-data.covid19_italy.data_by_region` LIMIT 100")
+
+##results 
+results_2 = query_job_2.result()
+
+###results into dataframe
+bigquery2 = pd.DataFrame(results_2.to_dataframe())
